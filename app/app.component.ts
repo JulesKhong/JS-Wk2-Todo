@@ -1,4 +1,7 @@
 import { Component, EventEmitter } from 'angular2/core';
+// Custom Event Emitter set up starts here: Step #1
+// set up output for CEE: Step #2
+  // input, output, and directives wrapped in []
 
 @Component({
   selector: 'task-list',
@@ -10,18 +13,24 @@ import { Component, EventEmitter } from 'angular2/core';
   </h3>
   `
 })
+// specify data type of CEE object in child component class declarataion: Step #3
+// set constructor to instantiate: Step #4
 export class TaskListComponent {
   public taskList: Task[];
   public onTaskSelect: EventEmitter<Task>;
   constructor() {
     this.onTaskSelect = new EventEmitter();
   }
+  // build emit method to ctrl when to send call to parent: Step #5
   taskClicked(clickedTask: Task): void {
     console.log(clickedTask, "from child");
     this.onTaskSelect.emit(clickedTask);
   }
 }
 
+// set Input/Output for child component in AC decorator: Step #5
+  // taskList is info passed to the child, from the parent
+  // onTaskSelect is info emitted from the child, passed to the parent
 @Component({
   selector: 'my-app',
   directives: [TaskListComponent],
